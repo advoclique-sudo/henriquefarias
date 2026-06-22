@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Henrique Farias Advocacia — Direito Criminal | Campo Grande/MS</title>
+  <meta name="description" content="Atendimento jurídico criminal em Campo Grande/MS. Investigações, prisões, audiências, inquéritos. OAB/MS 20.365. Orientação técnica, sigilosa e responsável.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #0A0A0A;
+      --graphite: #171717;
+      --dark:     #1E1E1E;
+      --dark2:    #262626;
+      --gold:     #B6914A;
+      --gold-l:   #D0B06E;
+      --gold-dim: rgba(182,145,74,0.13);
+      --gold-ln:  rgba(182,145,74,0.3);
+      --white:    #F7F7F5;
+      --gray:     #C8C8C5;
+      --muted:    #7A7A77;
+      --font-h:   'Playfair Display', Georgia, serif;
+      --font-b:   'Plus Jakarta Sans', system-ui, sans-serif;
+      --r:        3px;
+      --ease:     0.3s cubic-bezier(0.4,0,0.2,1);
+      --max:      1160px;
+      --hh:       68px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--black); color:var(--white); font-family:var(--font-b); line-height:1.65; overflow-x:hidden; }
+    img  { max-width:100%; display:block; }
+    a    { color:inherit; text-decoration:none; }
+    ul   { list-style:none; }
+
+    /* noise */
+    body::before {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+    }
+
+    /* utils */
+    .wrap { width:100%; max-width:var(--max); margin:0 auto; padding:0 40px; }
+    .label { font-size:10.5px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--gold); }
+    .h1 { font-family:var(--font-h); font-size:clamp(38px,5.5vw,66px); font-weight:500; line-height:1.08; }
+    .h2 { font-family:var(--font-h); font-size:clamp(28px,4vw,46px); font-weight:500; line-height:1.15; }
+    .h2 em, .h1 em { font-style:italic; color:var(--gold-l); }
+    .body-text { font-size:16px; color:var(--gray); line-height:1.75; }
+    .gold-bar { width:42px; height:2px; background:var(--gold); }
+
+    /* buttons */
+    .btn { display:inline-flex; align-items:center; gap:9px; padding:13px 28px; font-size:14px; font-weight:600; border-radius:var(--r); transition:var(--ease); font-family:var(--font-b); cursor:pointer; border:none; }
+    .btn-gold { background:var(--gold); color:var(--black); }
+    .btn-gold:hover { background:var(--gold-l); transform:translateY(-1px); box-shadow:0 8px 24px rgba(182,145,74,.3); }
+    .btn-outline { background:transparent; color:var(--white); border:1px solid var(--gold-ln); }
+    .btn-outline:hover { background:var(--gold-dim); border-color:var(--gold); }
+
+    /* ── HEADER */
+    #hdr {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      height:var(--hh); background:rgba(10,10,10,.93);
+      backdrop-filter:blur(18px); border-bottom:1px solid rgba(182,145,74,.1);
+    }
+    #hdr .wrap { display:flex; align-items:center; justify-content:space-between; height:100%; }
+    .logo { font-family:var(--font-h); font-size:17px; }
+    .logo span { color:var(--gold); }
+    .nav { display:flex; align-items:center; gap:28px; }
+    .nav a { font-size:13px; font-weight:500; color:var(--muted); transition:color .2s; }
+    .nav a:hover { color:var(--white); }
+    .ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .ham span { width:22px; height:1.5px; background:var(--white); display:block; transition:var(--ease); }
+
+    /* mobile nav */
+    #mnav {
+      display:none; position:fixed; top:var(--hh); left:0; right:0; z-index:999;
+      background:var(--graphite); border-bottom:1px solid var(--gold-ln);
+      padding:24px 40px; flex-direction:column; gap:18px;
+    }
+    #mnav.open { display:flex; }
+    #mnav a { font-size:15px; color:var(--gray); font-weight:500; }
+    #mnav .btn { justify-content:center; margin-top:6px; }
+
+    /* ── HERO */
+    #hero {
+      position:relative; min-height:100svh;
+      display:flex; align-items:center;
+      padding-top:var(--hh); overflow:hidden;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background:url('DSC08830.png') center 22% / cover no-repeat;
+      filter:brightness(.22) saturate(.55);
+    }
+    .hero-bg::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(110deg, rgba(10,10,10,.97) 0%, rgba(10,10,10,.78) 55%, rgba(10,10,10,.4) 100%);
+    }
+    .hero-grid { position:relative; z-index:1; padding:100px 0; display:grid; grid-template-columns:1fr 420px; gap:72px; align-items:center; }
+    .hero-inner .label { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .hero-inner .label::before { content:''; width:28px; height:1px; background:var(--gold); }
+    .hero-inner .h1 { margin-bottom:22px; }
+    .hero-sub { font-size:17px; color:var(--gray); line-height:1.72; margin-bottom:36px; max-width:520px; }
+    .hero-ctas { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:22px; }
+    .hero-note { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+    .hero-note::before { content:''; width:18px; height:1px; background:var(--gold); }
+
+    /* hero photo */
+    .hero-photo-col { position:relative; }
+    .hero-frame {
+      aspect-ratio:4/5; overflow:hidden; border-radius:2px;
+      border:1px solid var(--gold-ln);
+      position:relative;
+    }
+    .hero-frame img { width:100%; height:100%; object-fit:cover; object-position:center 15%; filter:saturate(.7) contrast(1.05); }
+    .hero-frame::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(10,10,10,.55) 0%, transparent 55%);
+    }
+    .hero-badge {
+      position:absolute; bottom:-14px; left:-14px;
+      background:var(--graphite); border:1px solid var(--gold-ln);
+      padding:14px 20px;
+    }
+    .hero-badge strong { display:block; font-family:var(--font-h); font-size:22px; color:var(--gold); line-height:1; }
+    .hero-badge span { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+
+    /* ── SITUAÇÕES */
+    #sit { padding:88px 0; background:var(--graphite); }
+    .sit-head { margin-bottom:48px; display:flex; flex-direction:column; gap:12px; }
+    .sit-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:1px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.05);
+      margin-bottom:36px;
+    }
+    .sit-item {
+      background:var(--graphite); padding:20px 20px 20px 22px;
+      display:flex; align-items:center; gap:13px;
+      font-size:14px; font-weight:500; color:var(--gray);
+      transition:var(--ease); cursor:default;
+      border-left:2px solid transparent;
+    }
+    .sit-item:hover { background:var(--dark2); border-left-color:var(--gold); color:var(--white); }
+    .sit-item svg { width:18px; height:18px; stroke:var(--gold); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+    .sit-cta { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+    .sit-note { font-size:13.5px; color:var(--muted); max-width:500px; line-height:1.65; }
+
+    /* ── ÁREAS */
+    #areas { padding:88px 0; background:var(--black); }
+    .areas-head { margin-bottom:48px; display:flex; flex-direction:column; gap:12px; }
+    .areas-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:1px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.05);
+    }
+    .area-item {
+      background:var(--black); padding:24px 22px;
+      position:relative; transition:var(--ease); overflow:hidden;
+    }
+    .area-item::after {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+      background:var(--gold); transform:scaleY(0); transform-origin:bottom; transition:.3s ease;
+    }
+    .area-item:hover::after { transform:scaleY(1); }
+    .area-item:hover { background:var(--graphite); }
+    .area-n { font-size:10px; letter-spacing:2px; color:var(--muted); margin-bottom:8px; font-weight:600; }
+    .area-t { font-family:var(--font-h); font-size:15px; font-weight:500; color:var(--white); margin-bottom:5px; }
+    .area-d { font-size:12.5px; color:var(--muted); line-height:1.55; }
+
+    /* ── SOBRE */
+    #sobre { padding:88px 0; background:var(--graphite); }
+    .sobre-inner { display:grid; grid-template-columns:320px 1fr; gap:80px; align-items:center; }
+    .sobre-img { position:relative; }
+    .sobre-frame {
+      aspect-ratio:3/4; overflow:hidden; border-radius:var(--r);
+      border:1px solid var(--gold-ln);
+    }
+    .sobre-frame img { width:100%; height:100%; object-fit:cover; object-position:center top; filter:saturate(.65) brightness(.88); }
+    .sobre-badge {
+      position:absolute; bottom:-14px; right:-14px;
+      background:var(--dark); border:1px solid var(--gold-ln); padding:14px 18px;
+    }
+    .sobre-badge strong { display:block; font-family:var(--font-h); font-size:22px; color:var(--gold); }
+    .sobre-badge span { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+    .sobre-text { display:flex; flex-direction:column; gap:20px; }
+    .sobre-body { font-size:16px; color:var(--gray); line-height:1.78; }
+    .sobre-contacts { display:flex; flex-direction:column; gap:10px; }
+    .sc { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--gray); line-height:1.5; }
+    .sc svg { width:16px; height:16px; stroke:var(--gold); fill:none; stroke-width:1.6; stroke-linecap:round; flex-shrink:0; margin-top:2px; }
+    .sobre-social { display:flex; gap:10px; }
+    .sobre-social a { width:34px; height:34px; border:1px solid var(--gold-ln); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold); transition:var(--ease); }
+    .sobre-social a:hover { background:var(--gold); color:var(--black); border-color:var(--gold); }
+
+    /* ── FAQ */
+    #faq { padding:88px 0; background:var(--black); }
+    .faq-head { margin-bottom:48px; display:flex; flex-direction:column; gap:12px; }
+    .faq-list { max-width:760px; }
+    .faq-item { border-bottom:1px solid rgba(255,255,255,.07); }
+    .faq-q {
+      width:100%; display:flex; justify-content:space-between; align-items:center;
+      padding:20px 0; text-align:left; font-size:15.5px; font-weight:500;
+      color:var(--white); background:none; border:none; cursor:pointer;
+      transition:color .2s; gap:20px; font-family:var(--font-b);
+    }
+    .faq-q:hover, .faq-q.active { color:var(--gold-l); }
+    .faq-chev { width:18px; height:18px; flex-shrink:0; color:var(--gold); transition:transform .3s; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
+    .faq-q.active .faq-chev { transform:rotate(180deg); }
+    .faq-a { display:none; padding:0 0 20px; font-size:14.5px; color:var(--gray); line-height:1.75; max-width:660px; }
+    .faq-a.open { display:block; }
+
+    /* ── CTA + FORM */
+    #cta { padding:100px 0; background:var(--graphite); position:relative; }
+    #cta::before, #cta::after {
+      content:''; position:absolute; left:50%; transform:translateX(-50%); width:500px; height:1px;
+      background:linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    #cta::before { top:0; } #cta::after { bottom:0; }
+    .cta-inner { display:grid; grid-template-columns:1fr 440px; gap:80px; align-items:start; }
+    .cta-text { display:flex; flex-direction:column; gap:18px; }
+    .cta-text .h2 { max-width:440px; }
+    .cta-text .body-text { max-width:400px; }
+    .cta-wa { display:inline-flex; align-items:center; gap:10px; padding:15px 28px; background:var(--gold); color:var(--black); font-size:15px; font-weight:600; border-radius:var(--r); transition:var(--ease); font-family:var(--font-b); }
+    .cta-wa:hover { background:var(--gold-l); transform:translateY(-1px); box-shadow:0 8px 24px rgba(182,145,74,.3); }
+    .cta-wa svg { width:20px; height:20px; fill:var(--black); flex-shrink:0; }
+    .cta-disclaimer { font-size:11.5px; color:var(--muted); line-height:1.6; max-width:360px; }
+
+    /* form */
+    .form-card { background:var(--dark); border:1px solid rgba(255,255,255,.07); border-radius:var(--r); padding:36px 32px; }
+    .form-title { font-family:var(--font-h); font-size:20px; font-weight:500; margin-bottom:24px; }
+    .fg { margin-bottom:14px; }
+    .fg label { display:block; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:7px; }
+    .fg input, .fg select, .fg textarea {
+      width:100%; background:var(--graphite); border:1px solid rgba(255,255,255,.09);
+      border-radius:var(--r); padding:11px 14px; font-size:14px; color:var(--white);
+      font-family:var(--font-b); transition:border-color .2s;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { outline:none; border-color:var(--gold); }
+    .fg select { appearance:none; cursor:pointer; }
+    .fg select option { background:var(--dark2); }
+    .fg textarea { resize:vertical; min-height:80px; }
+    .fcheck { display:flex; align-items:flex-start; gap:9px; margin:18px 0; }
+    .fcheck input { width:15px; height:15px; margin-top:2px; accent-color:var(--gold); flex-shrink:0; cursor:pointer; }
+    .fcheck label { font-size:11.5px; color:var(--muted); line-height:1.55; cursor:pointer; }
+    .fcheck label a { color:var(--gold); }
+    .fsub { width:100%; padding:14px; font-size:14px; font-weight:600; background:var(--gold); color:var(--black); border-radius:var(--r); transition:var(--ease); font-family:var(--font-b); cursor:pointer; border:none; }
+    .fsub:hover { background:var(--gold-l); }
+    .flgpd { margin-top:14px; font-size:11px; color:var(--muted); text-align:center; line-height:1.55; }
+
+    /* ── FOOTER */
+    #ftr { background:var(--black); padding:48px 0 28px; border-top:1px solid var(--gold-ln); }
+    .ftr-inner { display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; margin-bottom:36px; }
+    .ftr-brand .logo { font-size:16px; margin-bottom:6px; }
+    .ftr-oab { font-size:11px; color:var(--muted); margin-bottom:10px; }
+    .ftr-desc { font-size:13px; color:var(--muted); line-height:1.6; max-width:260px; }
+    .ftr-cols { display:flex; gap:60px; }
+    .ftr-col h4 { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+    .ftr-col ul { display:flex; flex-direction:column; gap:8px; }
+    .ftr-col ul li, .ftr-col ul li a { font-size:13px; color:var(--muted); transition:color .2s; }
+    .ftr-col ul li a:hover { color:var(--white); }
+    .ftr-bottom { border-top:1px solid rgba(255,255,255,.06); padding-top:22px; display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; }
+    .ftr-legal { font-size:11px; color:var(--muted); line-height:1.65; max-width:680px; }
+    .ftr-links { display:flex; gap:18px; }
+    .ftr-links a { font-size:11px; color:var(--muted); transition:color .2s; }
+    .ftr-links a:hover { color:var(--white); }
+
+    /* ── WPP FLOAT */
+    #wpp {
+      position:fixed; bottom:26px; right:26px; z-index:998;
+      width:56px; height:56px; border-radius:50%;
+      background:#25D366; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 20px rgba(37,211,102,.4); transition:transform .25s, box-shadow .25s;
+    }
+    #wpp:hover { transform:scale(1.08); box-shadow:0 8px 32px rgba(37,211,102,.5); }
+    #wpp svg { width:28px; height:28px; fill:#fff; }
+
+    /* animations */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+    .hero-inner > * { animation:fadeUp .8s ease-out both; }
+    .hero-inner > *:nth-child(2) { animation-delay:.1s; }
+    .hero-inner > *:nth-child(3) { animation-delay:.2s; }
+    .hero-inner > *:nth-child(4) { animation-delay:.3s; }
+    .hero-inner > *:nth-child(5) { animation-delay:.35s; }
+    .hero-photo-col { animation:fadeUp .9s .2s ease-out both; }
+    .reveal { opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .55s ease; }
+    .reveal.on { opacity:1; transform:none; }
+    .d1 { transition-delay:.1s; } .d2 { transition-delay:.2s; } .d3 { transition-delay:.3s; }
+
+    /* responsive */
+    @media (max-width:960px) {
+      .wrap { padding:0 28px; }
+      .hero-grid { grid-template-columns:1fr; }
+      .hero-photo-col { display:none; }
+      .sobre-inner { grid-template-columns:1fr; }
+      .sobre-img { display:none; }
+      .cta-inner { grid-template-columns:1fr; }
+      .ftr-cols { gap:36px; }
+    }
+    @media (max-width:768px) {
+      .wrap { padding:0 20px; }
+      :root { --hh:60px; }
+      .nav, #hdr .btn { display:none; }
+      .ham { display:flex; }
+      #sit, #areas, #sobre, #faq, #cta { padding:64px 0; }
+      .hero-grid { padding:72px 0; }
+      .hero-ctas { flex-direction:column; }
+      .hero-ctas .btn { justify-content:center; }
+      .form-card { padding:26px 20px; }
+      .ftr-inner { flex-direction:column; }
+      .ftr-cols { flex-wrap:wrap; gap:28px; }
+      .ftr-bottom { flex-direction:column; }
+      .sit-cta { flex-direction:column; align-items:flex-start; }
+    }
+    @media (max-width:500px) {
+      .sit-grid { grid-template-columns:1fr; }
+      .areas-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="wrap">
+    <a href="#hero" class="logo">Henrique Farias <span>Advocacia</span></a>
+    <nav class="nav">
+      <a href="#sit">Como ajudamos</a>
+      <a href="#areas">Atuação</a>
+      <a href="#sobre">Escritório</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="#cta" class="btn btn-gold" style="padding:9px 20px;font-size:13px;">Falar com advogado</a>
+    </nav>
+    <button class="ham" id="ham" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav id="mnav">
+  <a href="#sit" onclick="cn()">Como ajudamos</a>
+  <a href="#areas" onclick="cn()">Atuação</a>
+  <a href="#sobre" onclick="cn()">Escritório</a>
+  <a href="#faq" onclick="cn()">Dúvidas</a>
+  <a href="#cta" class="btn btn-gold" onclick="cn()">Falar com advogado</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-inner">
+        <p class="label">Direito Criminal · Campo Grande/MS</p>
+        <h1 class="h1">Está enfrentando<br>uma acusação,<br><em>investigação</em><br>ou situação criminal?</h1>
+        <p class="hero-sub">Momentos como esse exigem orientação jurídica técnica, sigilosa e cuidadosa desde os primeiros passos.</p>
+        <div class="hero-ctas">
+          <a href="https://wa.me/5567999999999?text=Ol%C3%A1%2C%20preciso%20de%20orienta%C3%A7%C3%A3o%20jur%C3%ADdica." class="btn btn-gold" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar com um advogado
+          </a>
+          <a href="#areas" class="btn btn-outline">Ver áreas de atuação</a>
+        </div>
+        <p class="hero-note">Atendimento com discrição e confidencialidade.</p>
+      </div>
+      <div class="hero-photo-col">
+        <div class="hero-frame">
+          <img src="DSC08830.png" alt="Dr. Henrique Farias — Advogado Criminalista" loading="eager">
+        </div>
+        <div class="hero-badge">
+          <strong>OAB</strong>
+          <span>20.365/MS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SITUAÇÕES -->
+<section id="sit">
+  <div class="wrap">
+    <div class="sit-head reveal">
+      <div class="gold-bar"></div>
+      <span class="label">Como podemos ajudar</span>
+      <h2 class="h2">Você está passando por<br><em>alguma destas situações?</em></h2>
+    </div>
+    <div class="sit-grid reveal">
+      <div class="sit-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Foi preso ou tem familiar preso</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Recebeu uma intimação</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Está sendo investigado</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Foi acusado de um crime</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Precisa prestar depoimento</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Sofreu busca e apreensão</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Possui audiência marcada</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Acompanhar inquérito policial</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Sofreu acusação injusta</div>
+      <div class="sit-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>Precisa apresentar defesa ou recurso</div>
+    </div>
+    <div class="sit-cta reveal">
+      <a href="https://wa.me/5567999999999?text=Ol%C3%A1%2C%20quero%20orienta%C3%A7%C3%A3o%20sobre%20meu%20caso." class="btn btn-gold" target="_blank" rel="noopener">Quero orientação sobre meu caso</a>
+      <p class="sit-note">Cada situação criminal possui particularidades. Buscar orientação antes de tomar decisões pode fazer diferença.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ÁREAS -->
+<section id="areas">
+  <div class="wrap">
+    <div class="areas-head reveal">
+      <div class="gold-bar"></div>
+      <span class="label">Atuação</span>
+      <h2 class="h2">Defesa criminal em<br><em>diferentes situações</em></h2>
+    </div>
+    <div class="areas-grid reveal">
+      <div class="area-item"><div class="area-n">01</div><div class="area-t">Prisão em Flagrante</div><p class="area-d">Acompanhamento desde os primeiros atos do procedimento.</p></div>
+      <div class="area-item"><div class="area-n">02</div><div class="area-t">Audiência de Custódia</div><p class="area-d">Representação técnica na apresentação ao juiz após a prisão.</p></div>
+      <div class="area-item"><div class="area-n">03</div><div class="area-t">Inquérito Policial</div><p class="area-d">Acompanhamento durante a fase investigativa.</p></div>
+      <div class="area-item"><div class="area-n">04</div><div class="area-t">Defesa em Ação Penal</div><p class="area-d">Elaboração e apresentação de defesa técnica no processo.</p></div>
+      <div class="area-item"><div class="area-n">05</div><div class="area-t">Crimes Contra o Patrimônio</div><p class="area-d">Furto, roubo, extorsão e correlatos.</p></div>
+      <div class="area-item"><div class="area-n">06</div><div class="area-t">Crimes de Trânsito</div><p class="area-d">Infrações criminais do Código de Trânsito Brasileiro.</p></div>
+      <div class="area-item"><div class="area-n">07</div><div class="area-t">Lei de Drogas</div><p class="area-d">Atuação em casos relacionados à Lei 11.343/2006.</p></div>
+      <div class="area-item"><div class="area-n">08</div><div class="area-t">Violência Doméstica</div><p class="area-d">Defesa técnica em processos sob a Lei Maria da Penha.</p></div>
+      <div class="area-item"><div class="area-n">09</div><div class="area-t">Crimes Digitais</div><p class="area-d">Delitos praticados por meio eletrônico ou internet.</p></div>
+      <div class="area-item"><div class="area-n">10</div><div class="area-t">Habeas Corpus</div><p class="area-d">Impetração para tutelar a liberdade de locomoção.</p></div>
+      <div class="area-item"><div class="area-n">11</div><div class="area-t">Recursos Criminais</div><p class="area-d">Elaboração e interposição de recursos em instâncias superiores.</p></div>
+      <div class="area-item"><div class="area-n">12</div><div class="area-t">Tribunal do Júri</div><p class="area-d">Defesa técnica em processos de competência do júri popular.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="wrap">
+    <div class="sobre-inner">
+      <div class="sobre-img reveal">
+        <div class="sobre-frame">
+          <img src="DSC08978.png" alt="Dr. Henrique Farias — Advogado Criminalista" loading="lazy">
+        </div>
+        <div class="sobre-badge">
+          <strong>OAB</strong>
+          <span>20.365/MS</span>
+        </div>
+      </div>
+      <div class="sobre-text reveal">
+        <div class="gold-bar"></div>
+        <span class="label">Escritório</span>
+        <h2 class="h2"><em>Henrique Farias</em> Advocacia</h2>
+        <p class="sobre-body">Atuação jurídica voltada à defesa de direitos em investigações, processos e situações relacionadas ao Direito Criminal. O atendimento é realizado com responsabilidade, discrição e análise cuidadosa das particularidades de cada caso.</p>
+        <div class="sobre-contacts">
+          <div class="sc"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 5.5 5.5l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>(67) 9 9999-9999</div>
+          <div class="sc"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>advhenriquefarias@gmail.com</div>
+          <div class="sc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Rua Cinderela, 107 — Carandá Bosque · Campo Grande/MS</div>
+        </div>
+        <div class="sobre-social">
+          <a href="https://www.instagram.com/drhenriquefariasadvogado/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@drhenriquefariasadvogado" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.35 6.35 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+          </a>
+          <a href="https://wa.me/5567999999999" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-head reveal">
+      <div class="gold-bar"></div>
+      <span class="label">Dúvidas frequentes</span>
+      <h2 class="h2">Perguntas que chegam<br><em>com frequência</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Fui intimado para prestar depoimento. Preciso de advogado?<svg class="faq-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a">Ter acompanhamento jurídico durante um depoimento é um direito garantido. O advogado pode orientar sobre o que responder, evitando que declarações sejam usadas de forma prejudicial. A forma de atuação depende das circunstâncias do caso.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Um familiar foi preso. Qual o primeiro passo?<svg class="faq-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a">O primeiro passo é identificar onde a pessoa está e qual a natureza da prisão. Um advogado acessa essas informações com mais rapidez e pode orientar sobre prazos legais, como a audiência de custódia, que deve ocorrer em até 24 horas após a prisão.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">O que acontece depois de uma prisão em flagrante?<svg class="faq-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a">Após o flagrante, o preso deve ser apresentado a um juiz em audiência de custódia em até 24 horas. O juiz avalia a legalidade da prisão e decide sobre manutenção da prisão preventiva, medidas cautelares alternativas ou soltura.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Recebi uma acusação injusta. Como devo agir?<svg class="faq-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a">Evite fazer declarações sem orientação jurídica prévia. Reúna os documentos relevantes e busque atendimento o quanto antes. A análise do caso permite identificar quais medidas são cabíveis para sua defesa.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">O atendimento pode ser realizado online?<svg class="faq-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a">Sim. O atendimento inicial pode ser feito por WhatsApp ou videoconferência. Para determinados atos, a presença presencial pode ser necessária.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">As informações compartilhadas são sigilosas?<svg class="faq-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a">Sim. O sigilo profissional é um dever ético e legal do advogado, previsto no Estatuto da OAB. Todas as informações são tratadas com absoluta confidencialidade.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + FORM -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="cta-text reveal">
+        <div class="gold-bar"></div>
+        <span class="label">Contato</span>
+        <h2 class="h2">Precisa compreender uma <em>situação criminal?</em></h2>
+        <p class="body-text">Converse com um advogado para apresentar o caso, esclarecer dúvidas e conhecer as medidas que podem ser avaliadas.</p>
+        <a href="https://wa.me/5567999999999?text=Ol%C3%A1%2C%20preciso%20de%20orienta%C3%A7%C3%A3o%20jur%C3%ADdica." class="cta-wa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar pelo WhatsApp
+        </a>
+        <p class="cta-disclaimer">O envio não garante contratação nem representa promessa de resultado. Cada caso exige análise individual.</p>
+      </div>
+      <div class="form-card reveal">
+        <h3 class="form-title">Solicitar contato</h3>
+        <form id="form" novalidate>
+          <div class="fg"><label for="nome">Nome</label><input type="text" id="nome" placeholder="Seu nome completo" required></div>
+          <div class="fg"><label for="wpp">WhatsApp</label><input type="tel" id="wpp" placeholder="(67) 9 9999-9999" required></div>
+          <div class="fg"><label for="sit">Situação resumida</label><textarea id="sit" placeholder="Descreva brevemente sua situação"></textarea></div>
+          <div class="fg">
+            <label for="urg">Nível de urgência</label>
+            <select id="urg">
+              <option value="">Selecione</option>
+              <option>Urgente — preciso de atendimento hoje</option>
+              <option>Breve — nos próximos dias</option>
+              <option>Normal — sem prazo imediato</option>
+            </select>
+          </div>
+          <div class="fcheck">
+            <input type="checkbox" id="lgpd" required>
+            <label for="lgpd">Autorizo o uso dos dados para contato jurídico, conforme a <a href="#">Política de Privacidade</a> e a LGPD.</label>
+          </div>
+          <button type="submit" class="fsub">Solicitar contato</button>
+          <p class="flgpd">Dados tratados com sigilo. Não compartilhados com terceiros.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="ftr">
+  <div class="wrap">
+    <div class="ftr-inner">
+      <div class="ftr-brand">
+        <div class="logo">Henrique Farias <span>Advocacia</span></div>
+        <div class="ftr-oab">OAB/MS 20.365</div>
+        <p class="ftr-desc">Atendimento jurídico criminal com seriedade, discrição e responsabilidade. Campo Grande/MS.</p>
+      </div>
+      <div class="ftr-cols">
+        <div class="ftr-col">
+          <h4>Contato</h4>
+          <ul>
+            <li>(67) 9 9999-9999</li>
+            <li>advhenriquefarias@gmail.com</li>
+            <li>Rua Cinderela, 107<br>Carandá Bosque — Campo Grande/MS</li>
+            <li>Seg–Sex · 8h–18h</li>
+          </ul>
+        </div>
+        <div class="ftr-col">
+          <h4>Redes</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/drhenriquefariasadvogado/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@drhenriquefariasadvogado" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://wa.me/5567999999999" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="ftr-bottom">
+      <p class="ftr-legal">As informações deste site possuem caráter exclusivamente informativo e não substituem consulta jurídica. Nenhum conteúdo representa promessa ou garantia de resultado. © 2024 Henrique Farias Advocacia · OAB/MS 20.365.</p>
+      <div class="ftr-links">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+        <a href="#">Aviso Legal</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WPP FLOAT -->
+<a id="wpp" href="https://wa.me/5567999999999?text=Ol%C3%A1%2C%20preciso%20de%20orienta%C3%A7%C3%A3o%20jur%C3%ADdica." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  // hamburger
+  const h = document.getElementById('ham'), m = document.getElementById('mnav');
+  h.addEventListener('click', () => { const o = m.classList.toggle('open'); h.setAttribute('aria-expanded', o); });
+  function cn() { m.classList.remove('open'); h.setAttribute('aria-expanded', false); }
+
+  // reveal
+  const io = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('on'); io.unobserve(x.target); } }), { threshold:.1, rootMargin:'0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.addEventListener('click', () => {
+      const a = b.nextElementSibling, open = b.classList.contains('active');
+      document.querySelectorAll('.faq-q').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-expanded','false'); x.nextElementSibling.classList.remove('open'); });
+      if (!open) { b.classList.add('active'); b.setAttribute('aria-expanded','true'); a.classList.add('open'); }
+    });
+  });
+
+  // form
+  document.getElementById('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!document.getElementById('lgpd').checked) { alert('Por favor, autorize o uso dos dados para continuar.'); return; }
+    const nome = document.getElementById('nome').value.trim();
+    const wpp  = document.getElementById('wpp').value.trim();
+    if (!nome || !wpp) { alert('Por favor, preencha nome e WhatsApp.'); return; }
+    const sit = document.getElementById('sit').value.trim();
+    const urg = document.getElementById('urg').value;
+    const msg = encodeURIComponent(`Olá, meu nome é ${nome}.\n\nSituação: ${sit||'Não informada'}\nUrgência: ${urg||'Não informada'}\n\nGostaria de orientação jurídica.`);
+    window.open(`https://wa.me/5567999999999?text=${msg}`, '_blank');
+  });
+</script>
+</body>
+</html>
